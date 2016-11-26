@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -14,61 +15,80 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class CopyDict extends AsyncTask<Void,Void,Boolean> {
+public class CopyDict extends AsyncTask<Void, Void, Boolean> {
+
     Context c;
     ZipEntry entry;
     AssetManager am;
     String filename;
     InputStream in;
     OutputStream out;
-    ZipInputStream sis;
+    ZipInputStream zis;
 
-    CopyDict(Context c , AssetManager am){
+    CopyDict(Context c, AssetManager am) {
         this.c = c;
         this.am = am;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
+        // TODO Auto-generated method stub
 
-        filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dictionary/dict/";
+        filename = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/xdictionary/dict/";
         File f = new File(filename);
-        boolean fileexists = f.exists();
-        if(!fileexists){fileexists = f.mkdirs();}
-        if(fileexists){}
-        if(Integer.toString(f.list().length).equalsIgnoreCase("9")){return false;}
+
+        f.mkdirs();
+
+        if (Integer.toString(f.list().length).equalsIgnoreCase("9")) {
+            return false;
+        }
+
         publishProgress();
 
-        try{
+        try {
+
             String i = am.list("dict")[0];
-            in = am.open("dict/"+ i );
-            sis = new ZipInputStream(in);
-            while((entry=sis.getNextEntry())!=null){
+            Log.i("filename", i);
+
+            in = am.open("dict/" + i);
+            Log.d("filename", in.toString());
+            zis = new ZipInputStream(in);
+
+            while ((entry = zis.getNextEntry()) != null) {
+                Log.w("filename", entry.getName().substring(5));
                 f = new File(filename + entry.getName().substring(5));
-                boolean doexists = f.exists();
-                 if(!doexists){
-                    doexists = f.createNewFile();}
-                if(doexists){continue;}
+                if (f.exists()) {
+                    continue;
+                }
+                f.createNewFile();
                 out = new FileOutputStream(filename
                         + entry.getName().substring(5), false);
                 byte[] buffer = new byte[1024];
                 int read;
-                while((read = sis.read(buffer))!= -1){
-                    out.write(buffer,0,read);
+                while ((read = zis.read(buffer)) != -1) {
+                    out.write(buffer, 0, read);
                 }
             }
-        }catch (IOException e){e.printStackTrace();}
+            Log.w("filename", "entry");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return true;
     }
-    protected  void onPostExecute(Boolean result){
-        if(result){
-            Toast.makeText(c, "DONE!", Toast.LENGTH_SHORT).show();
+
+    protected void onPostExecute(Boolean result) {
+        if (result) {
+            Toast.makeText(c, "Done!", Toast.LENGTH_SHORT).show();
         }
     }
+
     protected void onProgressUpdate(Void... values) {
 
         Toast.makeText(c, "Copying dictionary data", Toast.LENGTH_SHORT).show();
 
     }
+
 }

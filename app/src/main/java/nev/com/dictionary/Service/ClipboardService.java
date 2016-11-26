@@ -4,7 +4,9 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
@@ -31,7 +33,7 @@ public class ClipboardService extends Service{
     }
     @Override
     public int onStartCommand(Intent intent,int flags,int startid){
-        Toast.makeText(this, "Service Started!", Toast.LENGTH_SHORT).show();
+
         return START_STICKY;
     }
     @Nullable
@@ -44,12 +46,30 @@ public class ClipboardService extends Service{
         if(cm.hasPrimaryClip()){
             ClipData cd = cm.getPrimaryClip();
             if(cd.getDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)){
-                Toast.makeText(this, "Service Running", Toast.LENGTH_SHORT).show();
+                String word = cd.getItemAt(0).getText().toString();
+                SharedPreferences sp = this.getSharedPreferences("perfs", Context.MODE_WORLD_READABLE);
+                int text = Integer.parseInt(sp.getString(
+                        "displayModeVal", "0"));
+                switch (text) {
+                    case 1:
+                        b= new BrowserDisp(word,getApplicationContext());
+                        b.show();
+                        break;
+                    case 2:
+                        p = new PopupMeaning(word,getApplicationContext());
+                        p.show();
+                        break;
+                    default:
+                        t = new ToastDisp(word, getApplicationContext());
+                        t.show();
+                        break;
+                }
 
-                        String text = cd.getItemAt(0).getText().toString();
-                t = new ToastDisp(text, getApplicationContext());
 
-                t.show();
+
+
+
+
 
                     }}
 

@@ -8,53 +8,60 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-/**
- * Created by Yeoh on 11/26/2016.
- */
-
 public class ModeArrayAdapter extends ArrayAdapter<CharSequence> {
-    static class ViewHolder{
-        TextView prefText;
 
+    static class ViewHolder {
+        TextView prefText;
     }
 
     LayoutInflater mInflater;
     CharSequence[] mEntries;
 
-    public ModeArrayAdapter(Context context, int resource,CharSequence[] objects) {
-        super(context, resource,objects);
+    public ModeArrayAdapter(Context context, int resource,
+                            CharSequence[] objects) {
+        super(context, resource, objects);
 
         mInflater = LayoutInflater.from(context);
-        mEntries =objects;
-
+        mEntries = objects;
     }
-    public boolean areAllItemsEnabled(){return false;}
 
-    public boolean isEnabled(int position){
-        if(position >=2){
-            return  false;
-        }
-        else return true;
+    public boolean areAllItemsEnabled() {
+        return false;
     }
-    public View getView(int position, View convertView, ViewGroup parent){
+
+
+    public boolean isEnabled(int position) {
+        if (position >= 2)
+            return false;
+        else
+            return true;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder mViewHolder;
-        if(convertView == null){
-            convertView = mInflater.inflate(R.layout.choiceview,null);
+        if (convertView == null) {
+            convertView = mInflater.inflate(
+                    R.layout.choiceview, null);
             mViewHolder = new ViewHolder();
-            mViewHolder.prefText = (TextView) convertView.findViewById(android.R.id.text1);
+            mViewHolder.prefText = (TextView) convertView
+                    .findViewById(android.R.id.text1);
+
             convertView.setTag(mViewHolder);
 
-            if(position ==2 ){
-                mViewHolder.prefText.setBackgroundColor(Color.GRAY);
 
-            }else{
-                mViewHolder = (ViewHolder) convertView.getTag();
+            if (position == 2) {
+                mViewHolder.prefText.setBackgroundColor(Color.GRAY);
             }
 
-            mViewHolder.prefText.setText(mEntries[position]);
 
+        } else {
+            mViewHolder = (ViewHolder) convertView.getTag();
         }
+
+        mViewHolder.prefText.setText(mEntries[position]);
+
         return convertView;
     }
 
 }
+

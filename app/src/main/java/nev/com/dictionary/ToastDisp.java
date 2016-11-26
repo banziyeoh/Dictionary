@@ -31,3 +31,4 @@ public class ToastDisp {
             Toast.makeText(context, meaning_text, Toast.LENGTH_LONG).show();
     }
 }
+

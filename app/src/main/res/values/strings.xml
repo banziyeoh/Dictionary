@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Dictionary</string>
     <string-array name="displayMode">
-        <item name="Browser (Coming Soon)">Browser</item>
+        <item name="browser">Browser</item>
         <item name="popup">Popup</item>
-        <item name="Toast (Coming Soon)">Toast</item>
+        <item name="toast">Toast</item>
     </string-array>
 
     <string-array name="displayVals">

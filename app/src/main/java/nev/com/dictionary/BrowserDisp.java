@@ -22,7 +22,9 @@ public class BrowserDisp {
         url.append(search_word);
 
         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()));
+        browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(browserIntent);
+
 
     }
 }
