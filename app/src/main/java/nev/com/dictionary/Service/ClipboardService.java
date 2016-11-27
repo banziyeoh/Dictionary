@@ -1,5 +1,8 @@
 package nev.com.dictionary.Service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 
 import nev.com.dictionary.BrowserDisp;
 import nev.com.dictionary.PopupMeaning;
+import nev.com.dictionary.R;
+import nev.com.dictionary.ShutdownService;
 import nev.com.dictionary.ToastDisp;
 
 public class ClipboardService extends Service{
@@ -33,6 +38,26 @@ public class ClipboardService extends Service{
     }
     @Override
     public int onStartCommand(Intent intent,int flags,int startid){
+
+
+        // Build notification
+        // Actions are just fake
+        Intent intents = new Intent(this, ShutdownService.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intents, 0);
+        Notification noti = new Notification.Builder(this)
+                .setTicker("Ticker Title")
+                .setContentTitle("Dictionary Service Running")
+                .setContentText("Click to disable")
+                .setSmallIcon(R.drawable.ic_settings_applications_black_18dp)
+                .setContentIntent(pIntent).getNotification();
+        noti.flags=Notification.FLAG_AUTO_CANCEL;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, noti);
+
+
+
+
+
 
         return START_STICKY;
     }
@@ -80,6 +105,8 @@ public class ClipboardService extends Service{
             }
     public void onDestroy(){
         Toast.makeText(this, "Service Stopped!", Toast.LENGTH_SHORT).show();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(0);
     }
         }
 

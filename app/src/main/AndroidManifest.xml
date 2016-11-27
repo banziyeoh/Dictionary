@@ -19,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShutdownService"
+            android:theme="@android:style/Theme.NoDisplay"/>
 
         <service android:name=".Service.ClipboardService" android:enabled="true"/>
         <receiver android:name=".BootReceiver">
