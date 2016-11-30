@@ -5,6 +5,7 @@
         <item name="popup">Popup</item>
         <item name="toast">Toast</item>
     </string-array>
+    <string name="action_share">Share</string>
 
     <string-array name="displayVals">
         <item>1</item>

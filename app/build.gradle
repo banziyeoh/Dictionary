@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -28,4 +29,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/edu.mit.jwi_2.3.3.jar')
     compile 'com.android.support:customtabs:23.3.0'
+
 }

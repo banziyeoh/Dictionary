@@ -4,6 +4,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.READ_DATABASE"/>
+    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.WRITE_DATABASE"/>
 
 
     <application
@@ -21,14 +25,33 @@
         </activity>
         <activity android:name=".ShutdownService"
             android:theme="@android:style/Theme.NoDisplay"/>
+        <activity android:name=".MainDictionary"
+        android:theme="@style/Theme.AppCompat.Dialog"/>
+        <provider
+            android:name="nev.com.dictionary.LongmanDictionary.Data.WordsProvider"
+            android:authorities="nev.com.dictionary.LongmanDictionary"
+            android:exported="true"
+            android:syncable="true" />
+        <activity
+            android:name="nev.com.dictionary.DetailDialog"
+            android:label="Word Detail"
+            android:parentActivityName="nev.com.dictionary.MainDictionary"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
 
         <service android:name=".Service.ClipboardService" android:enabled="true"/>
+
         <receiver android:name=".BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+         </receiver>
         <receiver android:name=".BroadcastReceiver"/>
+        <service android:name="nev.com.dictionary.Service.WordsService"
+            android:enabled="true"/>
+        <receiver android:name="nev.com.dictionary.Service.NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 
