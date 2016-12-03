@@ -6,14 +6,14 @@
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
-    tools:context="com.gscasu.yourwords.MainActivity">
+    tools:context="nev.com.dictionary.MainDictionary">
 
     <!--
     This layout is a two-pane layout for the Sunshine master/detail flow.
     -->
     <fragment
         android:id="@+id/fragment_forecast"
-        android:name="com.gscasu.yourwords.WordsFragment"
+        android:name="nev.com.dictionary.WordsFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"

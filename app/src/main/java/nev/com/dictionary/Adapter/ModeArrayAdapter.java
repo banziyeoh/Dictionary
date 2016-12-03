@@ -33,7 +33,7 @@ public class ModeArrayAdapter extends ArrayAdapter<CharSequence> {
 
 
     public boolean isEnabled(int position) {
-        if (position >= 2)
+        if (position == 3)
             return false;
         else
             return true;
@@ -51,7 +51,7 @@ public class ModeArrayAdapter extends ArrayAdapter<CharSequence> {
             convertView.setTag(mViewHolder);
 
 
-            if (position == 2) {
+            if (position == 3) {
                 mViewHolder.prefText.setBackgroundColor(Color.GRAY);
             }
 

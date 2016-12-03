@@ -11,10 +11,6 @@ import android.widget.TextView;
 import nev.com.dictionary.R;
 import nev.com.dictionary.WordsFragment;
 
-/**
- * Created by Yeoh on 11/28/2016.
- */
-
 public class WordsAdapter extends CursorAdapter {
 
     public WordsAdapter(Context context, Cursor cursor, int flags) {

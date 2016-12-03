@@ -1,6 +1,8 @@
 package nev.com.dictionary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +24,12 @@ import nev.com.dictionary.Service.WordsService;
 
 public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
-    String search_word;
+
+    String Item;
+    SharedPreferences sharedPreferences;
+
+
+
 
 
     private final int WORDS_LOADER = 0;
@@ -60,13 +67,20 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
         if(savedInstanceState != null && savedInstanceState.containsKey(SCROLL_POSITION_KEY)) {
             mScrollPosition = savedInstanceState.getInt(SCROLL_POSITION_KEY);
         }
         View rootView = inflater.inflate(R.layout.words_fragment, container, false);
         mWordsListView = (ListView) rootView.findViewById(R.id.words_listView);
+
+
         mWordsAdapter = new WordsAdapter(getActivity(),null,0);
         mWordsListView.setAdapter(mWordsAdapter);
+        mWordsAdapter.notifyDataSetChanged();
 
         mWordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -83,15 +97,16 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
                 }
             }
         });
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            String i = bundle.getString("hi", search_word);
+
+
+            sharedPreferences=this.getActivity().getSharedPreferences("word",Context.MODE_PRIVATE);
+            String word = sharedPreferences.getString("search","search");
             Intent intent = new Intent(getActivity(), WordsService.class);
-            intent.putExtra(DetailDialog.HEADWORD_KEY, i);
+            intent.putExtra(DetailDialog.HEADWORD_KEY, word);
             getActivity().startService(intent);
             getLoaderManager().restartLoader(WORDS_LOADER, null, WordsFragment.this);
 
-        }
+
 
 
         return rootView;
@@ -100,9 +115,11 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v("LoaderCursor", "updating..");
+        sharedPreferences=this.getActivity().getSharedPreferences("word",Context.MODE_PRIVATE);
+        String word = sharedPreferences.getString("search","search");
         return new CursorLoader(
                 getActivity(),
-                WordsContract.WordsEntry.buildHeadword(search_word),
+                WordsContract.WordsEntry.buildHeadword(word),
                 WORDS_COLUMNS,
                 null,
                 null,
@@ -133,4 +150,13 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
         super.onSaveInstanceState(outState);
         outState.putInt(SCROLL_POSITION_KEY, mScrollPosition);
     }
+    @Override
+    public void onStop(){
+        super.onStop();
+
+    }
+
+
+
+
 }
