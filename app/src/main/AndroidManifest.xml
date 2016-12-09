@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nev.com.dictionary">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.READ_DATABASE"/>
-    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.WRITE_DATABASE"/>
+    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.READ_DATABASE" />
+    <uses-permission android:name="nev.com.dictionary.LongmanDictionary.Data.WRITE_DATABASE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
 
     <application
         android:allowBackup="true"
@@ -24,37 +24,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShutdownService"
-            android:theme="@android:style/Theme.NoDisplay"/>
-        <activity android:name=".MainDictionary"
-        android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity
+            android:name=".ShutdownService"
+            android:theme="@android:style/Theme.NoDisplay">
+        <intent-filter>
+            <action android:name="com.package.name.NAMEOFACTIVITYTOLAUNCH" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+           </activity>
+        <activity
+            android:name=".MainDictionary"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+
         <provider
-            android:name="nev.com.dictionary.LongmanDictionary.Data.WordsProvider"
+            android:name=".LongmanDictionary.Data.WordsProvider"
             android:authorities="nev.com.dictionary.LongmanDictionary"
             android:exported="false"
             android:syncable="true" />
+
         <activity
-            android:name="nev.com.dictionary.DetailDialog"
+            android:name=".DetailDialog"
             android:label="Word Detail"
-            android:parentActivityName="nev.com.dictionary.MainDictionary"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+            android:parentActivityName=".MainDictionary"
+            android:theme="@style/Theme.AppCompat.Dialog" />
 
-        <service android:name=".Service.ClipboardService" android:enabled="true"/>
+        <service
+            android:name=".Service.ClipboardService"
+            android:enabled="true" />
 
-        <receiver android:name=".BootReceiver">
-         </receiver>
-        <service android:name="nev.com.dictionary.Service.WordsService"
-            android:enabled="true"/>
-        <receiver android:name="nev.com.dictionary.Service.NetworkChangeReceiver"
+        <service
+            android:name=".Service.WordsService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".Service.NetworkChangeReceiver"
             android:label="NetworkChangeReceiver">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <!-- This meta-data tag is required to use Google Play Services. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
-
-
-
 
 </manifest>

@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import nev.com.dictionary.Adapter.WordsAdapter;
 import nev.com.dictionary.LongmanDictionary.Data.WordsContract;
 import nev.com.dictionary.Service.WordsService;
@@ -27,6 +31,8 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
     String Item;
     SharedPreferences sharedPreferences;
+
+
 
 
 
@@ -71,11 +77,17 @@ public class WordsFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
 
 
+
         if(savedInstanceState != null && savedInstanceState.containsKey(SCROLL_POSITION_KEY)) {
             mScrollPosition = savedInstanceState.getInt(SCROLL_POSITION_KEY);
         }
         View rootView = inflater.inflate(R.layout.words_fragment, container, false);
         mWordsListView = (ListView) rootView.findViewById(R.id.words_listView);
+        MobileAds.initialize(getActivity().getApplicationContext(),"ca-app-pub-1500608237132991/9302840066");
+        AdView mAdView =(AdView)rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("A2F21A33FB4760D1C6082C8C86FE4661").build();
+        mAdView.loadAd(adRequest);
+
 
 
         mWordsAdapter = new WordsAdapter(getActivity(),null,0);

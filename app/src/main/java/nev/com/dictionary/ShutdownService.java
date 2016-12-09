@@ -11,5 +11,6 @@ public class ShutdownService extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         stopService(new Intent(ShutdownService.this, ClipboardService.class));
+        finish();
     }
 }

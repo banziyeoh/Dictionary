@@ -20,7 +20,7 @@ public class SettingsFragment extends PreferenceFragment{
         PreferenceManager pm = getPreferenceManager();
         pm.setSharedPreferencesName("perfs");
         pm.setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
-        addPreferencesFromResource(R.layout.settings_list);
+        addPreferencesFromResource(R.xml.settings_list);
 
     }
 }

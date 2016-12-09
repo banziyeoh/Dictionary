@@ -3,11 +3,12 @@
     <string-array name="displayMode">
         <item name="Browser">Browser</item>
         <item name="Offline">Offline</item>
-        <item name = "Online">Online</item>
+        <item name="Online">Online</item>
         <item name="Toast">Toast</item>
 
     </string-array>
     <string name="action_share">Share</string>
+    <string name="donate_string">If you liked Dictionary, support development! Buy me a cup of coffee by purchasing the donate version..</string>
 
     <string-array name="displayVals">
         <item>1</item>
@@ -15,4 +16,14 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    <string name="title_activity_ad">AdActivity</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_world">Hello world!</string>
+    <!-- -
+        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="banner_ad_unit_id">ca-app-pub-1500608237132991/9302840066</string>
 </resources>

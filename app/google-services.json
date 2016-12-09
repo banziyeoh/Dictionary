@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "428473541637",
+    "firebase_url": "https://dictionary-9bbcc.firebaseio.com",
+    "project_id": "dictionary-9bbcc",
+    "storage_bucket": "dictionary-9bbcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428473541637:android:3db23eeeecdfd4e5",
+        "android_client_info": {
+          "package_name": "nev.com.dictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428473541637-koc98vdvivknmv0g1psflg74ek80rj7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL8qYrqk67FCAz5Qu39bY_7xx2EkHDRuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
